@@ -1,8 +1,16 @@
 
 from fastapi import FastAPI
+from app.core.config import get_settings
 
-app= FastAPI(title = "Clinic API", version = "0.1.0") 
 
-@app.get("/status")
-def check_status():
+settings= get_settings()
+app = FastAPI(
+    title = settings.app_name, 
+    version = settings.app_version, 
+    description= settings.app_description) 
+
+
+
+@app.get("/health")
+def health_check():
     return {"status": "ok"}
